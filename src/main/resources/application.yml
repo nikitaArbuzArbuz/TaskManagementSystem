@@ -1,0 +1,5 @@
+spring:
+  application:
+    name: TaskManagementSystem
+server:
+  port: 8080
