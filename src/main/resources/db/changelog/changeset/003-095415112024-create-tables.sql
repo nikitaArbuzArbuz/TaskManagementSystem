@@ -1,13 +1,3 @@
-CREATE TABLE tms.tasks
-(
-    id   BIGINT NOT NULL PRIMARY KEY,
-    title VARCHAR(255),
-    description VARCHAR(255),
-    status VARCHAR(50),
-    priority VARCHAR(50),
-    comment VARCHAR(255),
-);
-
 CREATE TABLE tms.roles
 (
     id   BIGINT NOT NULL PRIMARY KEY,
@@ -25,12 +15,25 @@ CREATE TABLE tms.users
     password   VARCHAR(120) NOT NULL
 );
 
+CREATE TABLE tms.tasks
+(
+    id   BIGINT NOT NULL PRIMARY KEY,
+    title VARCHAR(255),
+    description VARCHAR(255),
+    status VARCHAR(50),
+    priority VARCHAR(50),
+    comment VARCHAR(255),
+    author_id   BIGINT,
+    assignee_id BIGINT,
+    FOREIGN KEY (author_id) REFERENCES tms.users (id) ON DELETE CASCADE,
+    FOREIGN KEY (assignee_id) REFERENCES tms.users (id) ON DELETE CASCADE
+);
 
-CREATE TABLE tms.client_roles
+CREATE TABLE tms.user_roles
 (
     role_id   BIGINT NOT NULL,
     user_id BIGINT NOT NULL,
-    CONSTRAINT pk_clients_roles PRIMARY KEY (role_id, client_id),
-    CONSTRAINT fk_userol_on_role FOREIGN KEY (role_id) REFERENCES bank.roles (id),
-    CONSTRAINT fk_userol_on_client FOREIGN KEY (client_id) REFERENCES bank.clients (id)
+    CONSTRAINT pk_users_roles PRIMARY KEY (role_id, user_id),
+    CONSTRAINT fk_userol_on_role FOREIGN KEY (role_id) REFERENCES tms.roles (id),
+    CONSTRAINT fk_userol_on_user FOREIGN KEY (user_id) REFERENCES tms.users (id)
 );
