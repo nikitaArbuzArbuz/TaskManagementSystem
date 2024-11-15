@@ -2,8 +2,6 @@ package ru.effective.mobile.java.taskmanagementsystem.rest;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -22,25 +20,18 @@ import ru.effective.mobile.java.taskmanagementsystem.app.service.TaskService;
 public class AdminController {
     private final TaskService taskService;
 
-    @PostMapping
+    @PutMapping
     public ResponseEntity<Task> createTask(@RequestBody AdminTaskDto adminTaskDto) {
         return ResponseEntity.status(HttpStatus.CREATED)
                 .header("Server", new MessageResponse("Task created!").getMessage())
                 .body(taskService.createTask(adminTaskDto));
     }
 
-    @PatchMapping("/{id}/executor")
-    public ResponseEntity<Task> assignExecutor(@PathVariable Long id, @RequestParam Long executorId) {
+    @PatchMapping("/{id}/edit")
+    public ResponseEntity<Task> editTask(@PathVariable Long id, @RequestBody AdminTaskDto adminTaskDto) {
         return ResponseEntity.ok()
                 .header("Server", new MessageResponse("Task executor updated!").getMessage())
-                .body(taskService.assignExecutor(id, executorId));
-    }
-
-    @PatchMapping("/{id}/status")
-    public ResponseEntity<Task> updateStatus(@PathVariable Long id, @RequestParam Task.Status status) {
-        return ResponseEntity.ok()
-                .header("Server", new MessageResponse("Task status updated!").getMessage())
-                .body(taskService.updateTaskStatus(id, status));
+                .body(taskService.editTask(id, adminTaskDto));
     }
 
     @PostMapping("/{id}/comments")
@@ -48,5 +39,13 @@ public class AdminController {
         return ResponseEntity.status(HttpStatus.CREATED)
                 .header("Server", new MessageResponse("Comment success added!").getMessage())
                 .body(taskService.addComment(id, commentDto.getText()));
+    }
+
+    @DeleteMapping("/{id}/delete")
+    public ResponseEntity<?> deleteTask(@PathVariable Long id) {
+        taskService.deleteTask(id);
+        return ResponseEntity.ok()
+                .header("Server", new MessageResponse("Task success deleted!").getMessage())
+                .build();
     }
 }

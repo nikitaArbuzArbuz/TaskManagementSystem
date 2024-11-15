@@ -9,11 +9,13 @@ import ru.effective.mobile.java.taskmanagementsystem.app.domain.entity.Task;
 public interface TaskService {
     Task createTask(AdminTaskDto adminTaskDto);
 
-    Task assignExecutor(Long taskId, Long executorId);
+    Task editTask(Long taskId, AdminTaskDto adminTaskDto);
 
     Task updateTaskStatus(Long taskId, Task.Status status);
 
     Page<Task> getTasksByAuthorOrExecutor(Long userId, Pageable pageable);
 
     Comment addComment(Long taskId, String text);
+
+    void deleteTask(Long taskId);
 }

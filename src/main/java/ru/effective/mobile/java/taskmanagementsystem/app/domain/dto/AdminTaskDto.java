@@ -13,10 +13,10 @@ import java.io.Serializable;
 @NoArgsConstructor
 @Builder
 public class AdminTaskDto implements Serializable {
-    String title;
-    String description;
-    Task.Status status;
-    Task.Priority priority;
-    Long authorId;
-    Long executorId;
+    private String title;
+    private String description;
+    private Task.Status status;
+    private Task.Priority priority;
+    private Long authorId;
+    private Long executorId;
 }

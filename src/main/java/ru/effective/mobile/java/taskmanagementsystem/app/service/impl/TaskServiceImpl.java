@@ -12,6 +12,7 @@ import ru.effective.mobile.java.taskmanagementsystem.app.domain.dto.AdminTaskDto
 import ru.effective.mobile.java.taskmanagementsystem.app.domain.entity.Comment;
 import ru.effective.mobile.java.taskmanagementsystem.app.domain.entity.Task;
 import ru.effective.mobile.java.taskmanagementsystem.app.domain.entity.User;
+import ru.effective.mobile.java.taskmanagementsystem.app.mapper.TaskMapper;
 import ru.effective.mobile.java.taskmanagementsystem.app.service.TaskService;
 import ru.effective.mobile.java.taskmanagementsystem.app.service.UserService;
 
@@ -23,32 +24,44 @@ public class TaskServiceImpl implements TaskService {
     private final UserRepository userRepository;
     private final CommentRepository commentRepository;
     private final UserService userService;
+    private final TaskMapper taskMapper;
 
     @Override
     public Task createTask(AdminTaskDto adminTaskDto) {
-        Task task = new Task();
-        User author = userRepository.findById(adminTaskDto.getAuthorId()).orElseThrow(() ->
-                new RuntimeException("User not found"));
-        User executor = userRepository.findById(adminTaskDto.getExecutorId()).orElseThrow(() ->
-                new RuntimeException("User not found"));
+//        Task task = new Task();
+//        User author = userRepository.findById(adminTaskDto.getAuthorId()).orElseThrow(() ->
+//                new RuntimeException("User not found"));
+//        User executor = userRepository.findById(adminTaskDto.getExecutorId()).orElseThrow(() ->
+//                new RuntimeException("User not found"));
 
-        task.setTitle(adminTaskDto.getTitle());
-        task.setDescription(adminTaskDto.getDescription());
-        task.setStatus(Task.Status.PENDING);
-        task.setPriority(adminTaskDto.getPriority());
-        task.setAuthor(author);
-        task.setExecutor(executor);
+        Task task = taskMapper.map(adminTaskDto);
+
+//        task.setTitle(adminTaskDto.getTitle());
+//        task.setDescription(adminTaskDto.getDescription());
+//        task.setStatus(Task.Status.PENDING);
+//        task.setPriority(adminTaskDto.getPriority());
+//        task.setAuthor(author);
+//        task.setExecutor(executor);
 
         return taskRepository.save(task);
     }
 
     @Override
-    public Task assignExecutor(Long taskId, Long executorId) {
+    public Task editTask(Long taskId, AdminTaskDto adminTaskDto) {
         Task task = taskRepository.findById(taskId).orElseThrow(() ->
                 new RuntimeException("Task not found"));
-        User executor = userRepository.findById(executorId).orElseThrow(() ->
-                new RuntimeException("User not found"));
-        task.setExecutor(executor);
+
+        taskMapper.updateTaskFromDto(adminTaskDto, task);
+
+//        task.setTitle(adminTaskDto.getTitle());
+//        task.setDescription(adminTaskDto.getDescription());
+//        task.setStatus(Task.Status.PENDING);
+//        task.setPriority(adminTaskDto.getPriority());
+//        task.setAuthor(userRepository.findById(adminTaskDto.getAuthorId()).orElseThrow(() ->
+//                new RuntimeException("User not found")));
+//        task.setExecutor(userRepository.findById(adminTaskDto.getExecutorId()).orElseThrow(() ->
+//                new RuntimeException("User not found")));
+
         return taskRepository.save(task);
     }
 
@@ -74,5 +87,12 @@ public class TaskServiceImpl implements TaskService {
         comment.setTask(task);
         comment.setAuthor(userService.getAuthenticatedUser());
         return commentRepository.save(comment);
+    }
+
+    @Override
+    public void deleteTask(Long taskId) {
+        Task task = taskRepository.findById(taskId).orElseThrow(() ->
+                new RuntimeException("Task not found!"));
+        taskRepository.delete(task);
     }
 }
