@@ -1,0 +1,44 @@
+databaseChangeLog:
+  - preConditions:
+      - dbms:
+          type: postgresql
+
+  - changeSet:
+      id: 001-095115112024-create-schema
+      author: Nikita Pushkin
+      comment: Create schema tms
+      runOnChange: true
+      changes:
+        - sqlFile:
+            path: 001-095115112024-create-schema.sql
+            relativeToChangelogFile: true
+
+  - changeSet:
+      id: 002-095215112024-create-sequences
+      author: Nikita Pushkin
+      comment: Create sequences for tables
+      runOnChange: true
+      changes:
+        - sqlFile:
+            path: 002-095215112024-create-sequences.sql
+            relativeToChangelogFile: true
+
+  - changeSet:
+      id: 003-095415112024-create-tables
+      author: Nikita Pushkin
+      comment: Create tables in tms schema
+      runOnChange: true
+      changes:
+        - sqlFile:
+            path: 003-095415112024-create-tables.sql
+            relativeToChangelogFile: true
+
+  - changeSet:
+      id: 004-095815112024-insert-roles
+      author: Nikita Pushkin
+      comment: Insert data into table roles
+      runOnChange: true
+      changes:
+        - sqlFile:
+            path: 004-095815112024-insert-roles.sql
+            relativeToChangelogFile: true
