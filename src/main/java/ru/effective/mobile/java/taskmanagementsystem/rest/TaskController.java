@@ -16,8 +16,8 @@ import ru.effective.mobile.java.taskmanagementsystem.app.service.TaskService;
 public class TaskController {
     private final TaskService taskService;
 
-    @GetMapping
-    public Page<Task> getTasksByUser(@RequestParam Long userId, Pageable pageable) {
-        return taskService.getTasksByAuthorOrExecutor(userId, pageable);
-    }
+//    @GetMapping
+//    public Page<Task> getTasksByUser(@RequestParam Long userId, Pageable pageable) {
+//        return taskService.getTasksByAuthorOrExecutor(userId, pageable);
+//    }
 }

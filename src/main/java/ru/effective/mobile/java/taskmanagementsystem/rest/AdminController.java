@@ -2,15 +2,20 @@ package ru.effective.mobile.java.taskmanagementsystem.rest;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import ru.effective.mobile.java.taskmanagementsystem.app.domain.dto.AdminTaskDto;
 import ru.effective.mobile.java.taskmanagementsystem.app.domain.dto.CommentDto;
 import ru.effective.mobile.java.taskmanagementsystem.app.domain.dto.MessageResponse;
-import ru.effective.mobile.java.taskmanagementsystem.app.domain.dto.AdminTaskDto;
 import ru.effective.mobile.java.taskmanagementsystem.app.domain.entity.Comment;
+import ru.effective.mobile.java.taskmanagementsystem.app.domain.entity.PostSort;
 import ru.effective.mobile.java.taskmanagementsystem.app.domain.entity.Task;
 import ru.effective.mobile.java.taskmanagementsystem.app.service.TaskService;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/admin")
@@ -47,5 +52,13 @@ public class AdminController {
         return ResponseEntity.ok()
                 .header("Server", new MessageResponse("Task success deleted!").getMessage())
                 .build();
+    }
+
+    @GetMapping("/{id}/task")
+    public List<AdminTaskDto> getTasksByAuthorOrExecutor(@RequestParam(value = "offset", defaultValue = "0") Integer offset,
+                                                         @RequestParam(value = "limit", defaultValue = "10") Integer limit,
+                                                         @RequestParam(value = "sort", defaultValue = "TITLE_ASC") PostSort sortField,
+                                                         @PathVariable Long id) {
+        return taskService.getTasksByAuthorOrExecutor(id, PageRequest.of(offset, limit, sortField.getSortValue()));
     }
 }

@@ -6,6 +6,8 @@ import ru.effective.mobile.java.taskmanagementsystem.app.domain.dto.AdminTaskDto
 import ru.effective.mobile.java.taskmanagementsystem.app.domain.entity.Comment;
 import ru.effective.mobile.java.taskmanagementsystem.app.domain.entity.Task;
 
+import java.util.List;
+
 public interface TaskService {
     Task createTask(AdminTaskDto adminTaskDto);
 
@@ -13,7 +15,7 @@ public interface TaskService {
 
     Task updateTaskStatus(Long taskId, Task.Status status);
 
-    Page<Task> getTasksByAuthorOrExecutor(Long userId, Pageable pageable);
+    List<AdminTaskDto> getTasksByAuthorOrExecutor(Long userId, Pageable pageable);
 
     Comment addComment(Long taskId, String text);
 
