@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import ru.effective.mobile.java.taskmanagementsystem.app.domain.dto.CommentDto;
 import ru.effective.mobile.java.taskmanagementsystem.app.domain.dto.MessageResponse;
 import ru.effective.mobile.java.taskmanagementsystem.app.domain.dto.TaskDto;
+import ru.effective.mobile.java.taskmanagementsystem.app.service.CommentService;
 import ru.effective.mobile.java.taskmanagementsystem.app.service.TaskService;
 
 @RestController
@@ -17,6 +18,7 @@ import ru.effective.mobile.java.taskmanagementsystem.app.service.TaskService;
 @RequiredArgsConstructor
 public class AdminController {
     private final TaskService taskService;
+    private final CommentService commentService;
 
     @GetMapping
     public TaskDto getTask(@RequestParam Long id) {
@@ -41,7 +43,7 @@ public class AdminController {
     public ResponseEntity<CommentDto> addComment(@PathVariable Long id, @RequestBody CommentDto commentDto) {
         return ResponseEntity.status(HttpStatus.CREATED)
                 .header("Server", new MessageResponse("Comment success added!").getMessage())
-                .body(taskService.addComment(id, commentDto.getText()));
+                .body(commentService.addComment(id, commentDto.getText()));
     }
 
     @DeleteMapping("/{id}/delete")

@@ -3,6 +3,7 @@ package ru.effective.mobile.java.taskmanagementsystem.app.domain.entity;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
+import lombok.experimental.Accessors;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,6 +16,7 @@ import java.util.List;
 @NoArgsConstructor
 @ToString
 @Table(name = "tasks", schema = "tms")
+@Accessors(chain = true)
 public class Task {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "tasks_seq")
