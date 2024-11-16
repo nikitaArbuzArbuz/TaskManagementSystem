@@ -1,6 +1,7 @@
 package ru.effective.mobile.java.taskmanagementsystem.app.domain.dto;
 
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -24,9 +25,9 @@ public class TaskDto implements Serializable {
     private String title;
     @Size(max = 200, message = "Description must be not long 200 characters")
     private String description;
-    @NotBlank(message = "Please provide a status")
+    @NotNull(message = "Please provide a status")
     private Task.Status status;
-    @NotBlank(message = "Please provide a priority")
+    @NotNull(message = "Please provide a priority")
     private Task.Priority priority;
     private Long authorId;
     private Long executorId;

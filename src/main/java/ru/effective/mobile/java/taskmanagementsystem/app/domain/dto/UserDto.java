@@ -17,14 +17,14 @@ import java.util.Set;
 @NoArgsConstructor
 @Builder
 public class UserDto implements Serializable {
-    String firstName;
-    String lastName;
+    private String firstName;
+    private String lastName;
     @Size(max = 20)
     @NotBlank(message = "Please provide a login")
-    String login;
+    private String login;
     @Size(max = 50)
     @Email(message = "Please provide a valid email address")
     @NotBlank(message = "Please provide a email")
-    String email;
-    Set<Role> roles;
+    private String email;
+    private Set<Role> roles;
 }

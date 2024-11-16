@@ -43,7 +43,7 @@ public class AuthorizationServiceImpl implements AuthorizationService {
     @Override
     public JwtResponse authorize(LoginRequest loginRequest) {
         Authentication authentication = authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(loginRequest.getUsername(), loginRequest.getPassword()));
+                new UsernamePasswordAuthenticationToken(loginRequest.getEmail(), loginRequest.getPassword()));
 
         SecurityContextHolder.getContext().setAuthentication(authentication);
         String jwt = jwtUtils.generateJwtToken(authentication);
@@ -52,7 +52,7 @@ public class AuthorizationServiceImpl implements AuthorizationService {
         List<String> roles = userDetails.getAuthorities().stream()
                 .map(GrantedAuthority::getAuthority)
                 .collect(Collectors.toList());
-        log.info("Пользователь с Login {} успешно аутентифицирован", userDetails.getUsername());
+        log.info("Пользователь с email {} успешно аутентифицирован", userDetails.getEmail());
 
         return new JwtResponse(jwt,
                 userDetails.getId(),
@@ -91,7 +91,7 @@ public class AuthorizationServiceImpl implements AuthorizationService {
         user.setRoles(roles);
         clientRepository.saveAndFlush(user);
 
-        log.info("Пользователь успешно зарегистрирован login {}", user.getLogin());
+        log.info("Пользователь успешно зарегистрирован email {}", user.getEmail());
 
         return userMapper.map(user);
     }

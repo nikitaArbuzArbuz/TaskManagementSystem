@@ -19,7 +19,7 @@ public class AuthorizationController {
     private final AuthorizationService authorizationService;
 
     @PostMapping("/signin")
-    public ResponseEntity<?> authenticateUser(@RequestBody LoginRequest loginRequest) {
+    public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequest loginRequest) {
         JwtResponse jwtResponse = authorizationService.authorize(loginRequest);
         return ResponseEntity.ok()
                 .header("Server",

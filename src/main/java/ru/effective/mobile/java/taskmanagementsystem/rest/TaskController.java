@@ -1,5 +1,6 @@
 package ru.effective.mobile.java.taskmanagementsystem.rest;
 
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.PageRequest;
@@ -35,14 +36,14 @@ public class TaskController {
     }
 
     @PatchMapping("/{taskId}/status")
-    public ResponseEntity<TaskDto> updateTaskStatus(@PathVariable Long taskId, @RequestBody TaskStatusUpdateDto statusUpdateDto) {
+    public ResponseEntity<TaskDto> updateTaskStatus(@PathVariable Long taskId,@Valid @RequestBody TaskStatusUpdateDto statusUpdateDto) {
         return ResponseEntity.ok()
                 .header("Server", new MessageResponse("Status success changed!").getMessage())
                 .body(taskService.updateTaskStatus(taskId, statusUpdateDto.getStatus()));
     }
 
     @PostMapping("/{taskId}/comment")
-    public ResponseEntity<CommentDto> addComment(@PathVariable Long taskId, @RequestBody CommentDto commentDto) {
+    public ResponseEntity<CommentDto> addComment(@PathVariable Long taskId,@Valid  @RequestBody CommentDto commentDto) {
         taskService.verifyTaskExecutor(taskId, userService.getAuthenticatedUser().getId());
         return ResponseEntity.ok()
                 .header("Server", new MessageResponse("Comment success added!").getMessage())

@@ -1,5 +1,6 @@
 package ru.effective.mobile.java.taskmanagementsystem.rest;
 
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -26,21 +27,21 @@ public class AdminController {
     }
 
     @PostMapping
-    public ResponseEntity<TaskDto> createTask(@RequestBody TaskDto taskDto) {
+    public ResponseEntity<TaskDto> createTask(@Valid @RequestBody TaskDto taskDto) {
         return ResponseEntity.status(HttpStatus.CREATED)
                 .header("Server", new MessageResponse("Task created!").getMessage())
                 .body(taskService.createTask(taskDto));
     }
 
     @PatchMapping("/{id}/edit")
-    public ResponseEntity<TaskDto> editTask(@PathVariable Long id, @RequestBody TaskDto taskDto) {
+    public ResponseEntity<TaskDto> editTask(@PathVariable Long id,@Valid  @RequestBody TaskDto taskDto) {
         return ResponseEntity.ok()
                 .header("Server", new MessageResponse("Task executor updated!").getMessage())
                 .body(taskService.editTask(id, taskDto));
     }
 
     @PostMapping("/{id}/comment")
-    public ResponseEntity<CommentDto> addComment(@PathVariable Long id, @RequestBody CommentDto commentDto) {
+    public ResponseEntity<CommentDto> addComment(@PathVariable Long id,@Valid  @RequestBody CommentDto commentDto) {
         return ResponseEntity.status(HttpStatus.CREATED)
                 .header("Server", new MessageResponse("Comment success added!").getMessage())
                 .body(commentService.addComment(id, commentDto.getText()));
