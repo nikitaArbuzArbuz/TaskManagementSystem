@@ -3,7 +3,7 @@ spring:
     name: TaskManagementSystem
 
   datasource:
-    url: jdbc:postgresql://localhost:5433/db_tms_001
+    url: jdbc:postgresql://db:5432/db_tms_001
     username: postgres
     password: postgres
     driverClassName: org.postgresql.Driver
@@ -11,7 +11,7 @@ spring:
     enabled: true
     change-log: db/changelog/master-changelog.yaml
     driver-class-name: org.postgresql.Driver
-    url: jdbc:postgresql://localhost:5433/db_tms_001
+    url: jdbc:postgresql://db:5432/db_tms_001
     user: postgres
     password: postgres
   jpa:
