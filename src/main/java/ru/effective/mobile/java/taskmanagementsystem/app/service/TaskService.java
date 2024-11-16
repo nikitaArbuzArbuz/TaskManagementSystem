@@ -1,23 +1,21 @@
 package ru.effective.mobile.java.taskmanagementsystem.app.service;
 
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import ru.effective.mobile.java.taskmanagementsystem.app.domain.dto.AdminTaskDto;
-import ru.effective.mobile.java.taskmanagementsystem.app.domain.entity.Comment;
-import ru.effective.mobile.java.taskmanagementsystem.app.domain.entity.Task;
+import ru.effective.mobile.java.taskmanagementsystem.app.domain.dto.CommentDto;
+import ru.effective.mobile.java.taskmanagementsystem.app.domain.dto.TaskDto;
 
 import java.util.List;
 
 public interface TaskService {
-    Task createTask(AdminTaskDto adminTaskDto);
+    TaskDto createTask(TaskDto taskDto);
 
-    Task editTask(Long taskId, AdminTaskDto adminTaskDto);
+    TaskDto editTask(Long taskId, TaskDto taskDto);
 
-    Task updateTaskStatus(Long taskId, Task.Status status);
+    List<TaskDto> getTasksByAuthorOrExecutor(Long userId, Pageable pageable);
 
-    List<AdminTaskDto> getTasksByAuthorOrExecutor(Long userId, Pageable pageable);
-
-    Comment addComment(Long taskId, String text);
+    CommentDto addComment(Long taskId, String text);
 
     void deleteTask(Long taskId);
+
+    TaskDto getTaskById(Long id);
 }

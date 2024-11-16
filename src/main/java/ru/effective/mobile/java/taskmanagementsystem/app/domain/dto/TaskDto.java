@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import ru.effective.mobile.java.taskmanagementsystem.app.domain.entity.Task;
 
 import java.io.Serializable;
+import java.util.List;
 
 /**
  * DTO for {@link ru.effective.mobile.java.taskmanagementsystem.app.domain.entity.Task}
@@ -22,4 +23,5 @@ public class TaskDto implements Serializable {
     private Task.Priority priority;
     private Long authorId;
     private Long executorId;
+    private List<CommentDto> comment;
 }

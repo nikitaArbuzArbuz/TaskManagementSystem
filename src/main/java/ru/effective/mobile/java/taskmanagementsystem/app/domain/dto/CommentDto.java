@@ -12,5 +12,7 @@ import java.io.Serializable;
 @NoArgsConstructor
 @Builder
 public class CommentDto implements Serializable {
-    String text;
+    private String text;
+    private Long authorId;
+    private Long taskId;
 }
