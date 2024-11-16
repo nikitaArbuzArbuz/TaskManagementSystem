@@ -10,6 +10,7 @@ import ru.effective.mobile.java.taskmanagementsystem.app.domain.entity.Comment;
 import ru.effective.mobile.java.taskmanagementsystem.app.mapper.CommentMapper;
 import ru.effective.mobile.java.taskmanagementsystem.app.service.CommentService;
 import ru.effective.mobile.java.taskmanagementsystem.app.service.UserService;
+import ru.effective.mobile.java.taskmanagementsystem.util.exceptions.TaskNotFoundException;
 
 @Service
 @RequiredArgsConstructor
@@ -24,6 +25,6 @@ public class CommentServiceImpl implements CommentService {
     public CommentDto addComment(Long taskId, String text) {
         return commentMapper.map(commentRepository.saveAndFlush(new Comment()
                 .create(text, userService.getAuthenticatedUser(), taskRepository.findById(taskId).orElseThrow(() ->
-                        new RuntimeException("Task not found")))));
+                        new TaskNotFoundException("Task not found", System.currentTimeMillis())))));
     }
 }

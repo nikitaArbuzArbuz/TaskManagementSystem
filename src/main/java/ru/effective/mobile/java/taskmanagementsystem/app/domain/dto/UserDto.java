@@ -20,11 +20,11 @@ public class UserDto implements Serializable {
     String firstName;
     String lastName;
     @Size(max = 20)
-    @NotBlank
+    @NotBlank(message = "Please provide a login")
     String login;
     @Size(max = 50)
-    @Email
-    @NotBlank
+    @Email(message = "Please provide a valid email address")
+    @NotBlank(message = "Please provide a email")
     String email;
     Set<Role> roles;
 }

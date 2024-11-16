@@ -1,5 +1,6 @@
 package ru.effective.mobile.java.taskmanagementsystem.app.domain.dto;
 
+import jakarta.validation.constraints.Size;
 import lombok.*;
 
 import java.io.Serializable;
@@ -12,6 +13,7 @@ import java.io.Serializable;
 @NoArgsConstructor
 @Builder
 public class CommentDto implements Serializable {
+    @Size(min = 1, message = "Text must be min 1characters")
     private String text;
     private Long authorId;
     private Long taskId;

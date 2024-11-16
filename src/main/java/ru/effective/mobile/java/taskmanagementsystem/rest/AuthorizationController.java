@@ -7,6 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ru.effective.mobile.java.taskmanagementsystem.app.domain.dto.*;
 import ru.effective.mobile.java.taskmanagementsystem.app.service.AuthorizationService;
+import ru.effective.mobile.java.taskmanagementsystem.util.responses.MessageResponse;
 
 @Slf4j
 @CrossOrigin(origins = "*", maxAge = 3600)

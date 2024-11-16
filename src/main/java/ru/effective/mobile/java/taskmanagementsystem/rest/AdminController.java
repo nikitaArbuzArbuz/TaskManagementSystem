@@ -6,7 +6,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ru.effective.mobile.java.taskmanagementsystem.app.domain.dto.CommentDto;
-import ru.effective.mobile.java.taskmanagementsystem.app.domain.dto.MessageResponse;
+import ru.effective.mobile.java.taskmanagementsystem.util.responses.MessageResponse;
 import ru.effective.mobile.java.taskmanagementsystem.app.domain.dto.TaskDto;
 import ru.effective.mobile.java.taskmanagementsystem.app.service.CommentService;
 import ru.effective.mobile.java.taskmanagementsystem.app.service.TaskService;

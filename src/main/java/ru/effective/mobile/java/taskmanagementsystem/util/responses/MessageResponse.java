@@ -1,4 +1,4 @@
-package ru.effective.mobile.java.taskmanagementsystem.app.domain.dto;
+package ru.effective.mobile.java.taskmanagementsystem.util.responses;
 
 import lombok.Getter;
 import lombok.Setter;

@@ -11,6 +11,7 @@ import ru.effective.mobile.java.taskmanagementsystem.app.domain.entity.Task;
 import ru.effective.mobile.java.taskmanagementsystem.app.mapper.TaskMapper;
 import ru.effective.mobile.java.taskmanagementsystem.app.service.TaskService;
 import ru.effective.mobile.java.taskmanagementsystem.app.service.UserService;
+import ru.effective.mobile.java.taskmanagementsystem.util.exceptions.TaskNotFoundException;
 
 import java.util.List;
 
@@ -31,7 +32,7 @@ public class TaskServiceImpl implements TaskService {
     @Override
     public TaskDto editTask(Long taskId, TaskDto taskDto) {
         Task task = taskRepository.findById(taskId).orElseThrow(() ->
-                new RuntimeException("Task not found"));
+                new TaskNotFoundException("Task not found", System.currentTimeMillis()));
         taskMapper.updateTaskFromDto(taskDto, task);
         return taskMapper.map(taskRepository.saveAndFlush(task));
     }
@@ -44,14 +45,14 @@ public class TaskServiceImpl implements TaskService {
     @Override
     public void deleteTask(Long taskId) {
         Task task = taskRepository.findById(taskId).orElseThrow(() ->
-                new RuntimeException("Task not found!"));
+                new TaskNotFoundException("Task not found", System.currentTimeMillis()));
         taskRepository.delete(task);
     }
 
     @Override
     public TaskDto getTaskById(Long id) {
         return taskMapper.map(taskRepository.findById(id).orElseThrow(() ->
-                new RuntimeException("Task not found!")));
+                new TaskNotFoundException("Task not found", System.currentTimeMillis())));
     }
 
     @Override
@@ -59,13 +60,14 @@ public class TaskServiceImpl implements TaskService {
         verifyTaskExecutor(taskId, userService.getAuthenticatedUser().getId());
 
         return taskMapper.map(taskRepository.saveAndFlush(taskRepository.findById(taskId)
-                .orElseThrow(() -> new RuntimeException("Task not found")).setStatus(status)));
+                .orElseThrow(() -> new TaskNotFoundException("Task not found", System.currentTimeMillis()))
+                .setStatus(status)));
     }
 
     @Override
     public void verifyTaskExecutor(Long taskId, Long userId) {
         if (!taskRepository.findById(taskId)
-                .orElseThrow(() -> new RuntimeException("Task not found"))
+                .orElseThrow(() -> new TaskNotFoundException("Task not found", System.currentTimeMillis()))
                 .getExecutor().getId().equals(userId)) {
             throw new RuntimeException("You are not executor to manage this task");
         }
