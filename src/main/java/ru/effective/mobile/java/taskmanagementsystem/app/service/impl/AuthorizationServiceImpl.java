@@ -8,6 +8,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -39,9 +40,11 @@ public class AuthorizationServiceImpl implements AuthorizationService {
     private final PasswordEncoder encoder;
     private final RoleStrategyFactory roleStrategyFactory;
     private final UserMapper userMapper;
+    private final UserDetailsService userDetailsService;
 
     @Override
     public JwtResponse authorize(LoginRequest loginRequest) {
+        userDetailsService.loadUserByUsername(loginRequest.getEmail());
         Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(loginRequest.getEmail(), loginRequest.getPassword()));
 
