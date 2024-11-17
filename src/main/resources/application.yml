@@ -1,0 +1,38 @@
+spring:
+  application:
+    name: TaskManagementSystem
+
+  datasource:
+    url: jdbc:postgresql://db:5432/db_tms_001
+    username: postgres
+    password: postgres
+    driverClassName: org.postgresql.Driver
+  liquibase:
+    enabled: true
+    change-log: db/changelog/master-changelog.yaml
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://db:5432/db_tms_001
+    user: postgres
+    password: postgres
+  jpa:
+    open-in-view: false
+    hibernate:
+      ddl-auto: validate
+
+security:
+  token: tstrs4g434wyhser5htstrs4g434wyhser5htstrs4g434wyhser5htstrs4g434wyhser5htstrs4g434wyhser5h
+  expiration: 86400000
+
+server:
+  port: 8080
+
+logging:
+  level:
+    level:
+      ROOT: DEBUG
+      ru.effective.mobile.java: DEBUG
+      org.hibernate.SQL: INFO
+  file:
+    name: logs/logs.log
+  pattern:
+    file: "%d{yyyy-MM-dd HH:mm:ss} %-5level %logger{36} [%M] - %msg%n"
