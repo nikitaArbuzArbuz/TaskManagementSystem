@@ -8,11 +8,11 @@ import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
-import ru.effective.mobile.java.taskmanagementsystem.util.responses.MessageResponse;
-import ru.effective.mobile.java.taskmanagementsystem.util.responses.ExceptionResponse;
 import ru.effective.mobile.java.taskmanagementsystem.util.exceptions.TaskNotFoundException;
 import ru.effective.mobile.java.taskmanagementsystem.util.exceptions.TaskUnauthorizedException;
 import ru.effective.mobile.java.taskmanagementsystem.util.exceptions.UserNotFoundException;
+import ru.effective.mobile.java.taskmanagementsystem.util.responses.ExceptionResponse;
+import ru.effective.mobile.java.taskmanagementsystem.util.responses.MessageResponse;
 
 import java.util.HashMap;
 import java.util.Map;

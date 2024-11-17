@@ -23,6 +23,7 @@ public class CommentServiceImpl implements CommentService {
 
     @Override
     public CommentDto addComment(Long taskId, String text) {
+        log.info("Add comment for task ID: {}", taskId);
         return commentMapper.map(commentRepository.saveAndFlush(new Comment()
                 .create(text, userService.getAuthenticatedUser(), taskRepository.findById(taskId).orElseThrow(() ->
                         new TaskNotFoundException("Task not found", System.currentTimeMillis())))));

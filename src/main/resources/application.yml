@@ -25,3 +25,14 @@ security:
 
 server:
   port: 8080
+
+logging:
+  level:
+    level:
+      ROOT: DEBUG
+      ru.effective.mobile.java: DEBUG
+      org.hibernate.SQL: INFO
+  file:
+    name: logs/logs.log
+  pattern:
+    file: "%d{yyyy-MM-dd HH:mm:ss} %-5level %logger{36} [%M] - %msg%n"

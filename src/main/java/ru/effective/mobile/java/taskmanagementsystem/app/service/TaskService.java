@@ -1,7 +1,6 @@
 package ru.effective.mobile.java.taskmanagementsystem.app.service;
 
 import org.springframework.data.domain.Pageable;
-import ru.effective.mobile.java.taskmanagementsystem.app.domain.dto.CommentDto;
 import ru.effective.mobile.java.taskmanagementsystem.app.domain.dto.TaskDto;
 import ru.effective.mobile.java.taskmanagementsystem.app.domain.entity.Task;
 

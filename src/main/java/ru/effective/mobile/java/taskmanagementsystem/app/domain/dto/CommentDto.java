@@ -1,7 +1,10 @@
 package ru.effective.mobile.java.taskmanagementsystem.app.domain.dto;
 
 import jakarta.validation.constraints.Size;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
 

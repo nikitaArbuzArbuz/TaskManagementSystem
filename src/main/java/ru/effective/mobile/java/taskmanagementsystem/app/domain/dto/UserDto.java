@@ -3,7 +3,10 @@ package ru.effective.mobile.java.taskmanagementsystem.app.domain.dto;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import ru.effective.mobile.java.taskmanagementsystem.app.domain.entity.Role;
 
 import java.io.Serializable;

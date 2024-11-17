@@ -26,6 +26,7 @@ public class TaskServiceImpl implements TaskService {
 
     @Override
     public TaskDto createTask(TaskDto taskDto) {
+        log.info("Create new task TITLE: {}", taskDto.getTitle());
         return taskMapper.map(taskRepository.saveAndFlush(taskMapper.map(taskDto)));
     }
 
@@ -34,11 +35,13 @@ public class TaskServiceImpl implements TaskService {
         Task task = taskRepository.findById(taskId).orElseThrow(() ->
                 new TaskNotFoundException("Task not found", System.currentTimeMillis()));
         taskMapper.updateTaskFromDto(taskDto, task);
+        log.info("Edit task ID: {}", taskId);
         return taskMapper.map(taskRepository.saveAndFlush(task));
     }
 
     @Override
     public List<TaskDto> getTasksByAuthorOrExecutor(Long userId, Pageable pageable) {
+        log.info("Get tasks by user ID: {}", userId);
         return taskMapper.map(taskRepository.findAllByAuthorIdOrExecutorId(userId, userId, pageable).getContent());
     }
 
@@ -47,10 +50,12 @@ public class TaskServiceImpl implements TaskService {
         Task task = taskRepository.findById(taskId).orElseThrow(() ->
                 new TaskNotFoundException("Task not found", System.currentTimeMillis()));
         taskRepository.delete(task);
+        log.info("Delete task ID: {}", taskId);
     }
 
     @Override
     public TaskDto getTaskById(Long id) {
+        log.info("Get task by ID: {}", id);
         return taskMapper.map(taskRepository.findById(id).orElseThrow(() ->
                 new TaskNotFoundException("Task not found", System.currentTimeMillis())));
     }
@@ -58,7 +63,7 @@ public class TaskServiceImpl implements TaskService {
     @Override
     public TaskDto updateTaskStatus(Long taskId, Task.Status status) {
         verifyTaskExecutor(taskId, userService.getAuthenticatedUser().getId());
-
+        log.info("Update task status ID: {} to {} status", taskId, status);
         return taskMapper.map(taskRepository.saveAndFlush(taskRepository.findById(taskId)
                 .orElseThrow(() -> new TaskNotFoundException("Task not found", System.currentTimeMillis()))
                 .setStatus(status)));
@@ -71,5 +76,6 @@ public class TaskServiceImpl implements TaskService {
                 .getExecutor().getId().equals(userId)) {
             throw new RuntimeException("You are not executor to manage this task");
         }
+        log.info("Verify executor ID: {} for task ID: {}", userId, taskId);
     }
 }

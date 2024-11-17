@@ -32,7 +32,7 @@ public class Comment {
     @JoinColumn(name = "task_id")
     private Task task;
 
-    public Comment create(String text,User author, Task task) {
+    public Comment create(String text, User author, Task task) {
         this.text = text;
         this.author = author;
         this.task = task;

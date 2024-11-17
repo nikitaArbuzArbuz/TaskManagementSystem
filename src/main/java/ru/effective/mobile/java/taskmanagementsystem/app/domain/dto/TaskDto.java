@@ -7,6 +7,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.experimental.Accessors;
 import ru.effective.mobile.java.taskmanagementsystem.app.domain.entity.Task;
 
 import java.io.Serializable;
@@ -19,6 +20,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
+@Accessors(chain = true)
 public class TaskDto implements Serializable {
     @NotBlank(message = "Please provide a title")
     @Size(min = 3, message = "Title must be min 3 characters")
